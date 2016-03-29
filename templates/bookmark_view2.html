@@ -1,0 +1,47 @@
+
+<!doctype html>
+<html>
+
+
+{%extends "layout.html"%}
+
+   
+
+
+<h1 >Hello </h1>
+
+<h2>Bookmarks available:
+
+</h2><br>
+
+{%block form%}
+<script type="text/javascript">
+function toggle(source){
+    checkboxes = document.getElementsByName('url');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+</script>
+
+ <form action='' method='POST'  enctype="multipart/form-data">
+  <input type="checkbox" name="all" id="all" onClick="toggle(this)" /> <label for='all'>Select All</label>
+
+
+<h2> Please choose the files to import</h2>
+
+<div >
+
+{%for i in url_list%}
+<li><input type="checkbox" name="url" value={{i}}> {{i}}</li><br>
+{%endfor%}
+
+</div>
+<br>
+<input type='submit' class="btn btn-success" name='submit'></input>
+</form>
+
+
+{%endblock%}
+</body>
+</html> 

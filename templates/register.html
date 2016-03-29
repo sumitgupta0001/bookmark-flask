@@ -1,0 +1,28 @@
+
+{% extends "layout2.html" %}
+{%block form%}
+ <form action='' method='POST'  enctype="multipart/form-data">
+                
+                Please Enter Your Name:
+                <br>
+                <input type='text' name='Name' value=''></input>
+                <br>
+                Please Enter Your Email:
+                <br>
+                <input type='email' name='Email' value="" ></input>
+                <br>
+                Password:
+                <br>
+
+                <input type='password' name='Password' value='' ></input>
+                <br>
+                Confirm Password:
+
+                <br>
+                <input type='password' name='Confirm_Password' placeholder='Confirm Password'></input>
+                <br>
+                
+
+                <input type='submit' class="btn btn-success" name='submit'></input>
+               </form>
+{% endblock %}

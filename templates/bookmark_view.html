@@ -1,0 +1,43 @@
+
+<!doctype html>
+<html>
+<head>
+
+{%extends "layout.html"%}
+
+   
+</head>
+{%block body%}
+<h1 >Hello </h1>
+
+<h2>Bookmarks available:
+</h2><br>
+
+<div >
+
+{%for i in url_list%}
+<li><a href={{i}}> {{i}}</a>
+<form >
+
+<button type="submit" class="btn btn-success" formaction="/remove/{{i[7:]}}">Remove</button> 
+<button type="submit" class="btn  btn-info" formaction="/edit/{{i[7:]}}">Edit</button>
+
+</form>                  </li>   <br> 
+
+         
+{%endfor%}
+
+</div>
+<br>
+<form>
+
+<br>
+<br>
+
+
+
+</form>
+
+
+{%endblock%}
+</html> 

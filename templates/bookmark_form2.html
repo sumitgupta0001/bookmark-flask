@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+ {% block form%}
+ <form action='' method='POST'  enctype="multipart/form-data">
+  <div class ="container" >
+                
+                 Name:
+                <br>
+                <input type='text' name='Name' value={{d}}></input>
+                <br>
+                
+                <br>
+                
+                Labels
+                <br>
+
+                <input type='text' name='Label' value={{f}} ></input>
+                <br>
+                Notes
+
+                <br>
+                <input type='text' name='Notes' value={{g}}></input>
+                <br>
+                
+
+                <input type="submit" class="btn btn-lg btn-success" name='submit'></input>
+                
+               </form>
+               
+               </div>
+{%endblock%}

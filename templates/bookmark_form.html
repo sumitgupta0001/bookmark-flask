@@ -1,0 +1,37 @@
+ 
+ {% extends "layout.html" %}
+ {% block form%}
+ <form action='' method='POST'  enctype="multipart/form-data">
+ <div class ="container" >
+                    
+                
+                 Name:
+                <br>
+                <input type='text' name='Name' value=''></input>
+                <br>
+                Location(URL)
+                <br>
+                <input type='url' name='URL' value="" ></input>
+                <br>
+                Labels
+                <br>
+
+                <input type='text' name='Label' value='' ></input>
+                <br>
+                Notes
+
+                <br>
+                <input type='text' name='Notes' placeholder=''></input>
+                <br>
+                
+
+                <input type="submit" name='submit' class="btn btn-lg btn-success"></input>
+                
+               </form>
+               <form>
+               <br>
+                   <button type="submit" formaction="/logout" class="btn btn-lg btn-info">Logout</button> 
+               </form>
+               </div>
+               
+{%endblock%}
