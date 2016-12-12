@@ -4,7 +4,8 @@
 import os
 from mongoengine import *
 
-final_mongo_host = "mongodb://admin:C2utndwzfJHp@%s:%s/" % (os.environ['OPENSHIFT_MONGODB_DB_HOST'], os.environ['OPENSHIFT_MONGODB_DB_PORT'])
+#final_mongo_host = "mongodb://admin:C2utndwzfJHp@%s:%s/" % (os.environ['OPENSHIFT_MONGODB_DB_HOST'], os.environ['OPENSHIFT_MONGODB_DB_PORT'])
+final_mongo_host = "mongodb://0.0.0.0:27017"
 connect('myflaskapp', host=final_mongo_host)
     #,username='admin',password='C2utndwzfJHp')
 

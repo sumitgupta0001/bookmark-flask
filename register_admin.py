@@ -11,44 +11,30 @@ from datetime import *
 from flask.ext.login import LoginManager,login_required,current_user,logout_user
 import flask.ext.login as flask_login
 from flask import send_from_directory
-UPLOAD_FOLDER=os.environ['OPENSHIFT_DATA_DIR']
-
-#from models import *
+UPLOAD_FOLDER=os.getcwd()
 
 app=Flask(__name__)
 app.config['SECRET_KEY']='hard to guess'
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
-login_manager = LoginManager()  ##here login_manager is the object or instance of class LoginManager
 
 login_manager.init_app(app)
 
-#print dir(app)
 class User(flask_login.UserMixin):
     pass
 
 
-@login_manager.user_loader   ## here instance of LoginManager (i.e. login_manager) is 
-#                             used to call the attribute of LoginManager i.e user_loader 
+@login_manager.user_loader 
 def user_loader(email2):
     print '1'
     try:
         if(registration.objects.get(email_db=email2)):
             user=User()
-            #print User.__dict__
             user.id=email2
-            #print user.__dict__['id']
             return user
     except DoesNotExist:
         return
     if not registration.objects(email_db=email2):
         return
-
-    # DO NOT ever store passwords in plaintext and always compare password
-    # hashes using constant-time comparison!
-    
-
-
-
 
 @app.route('/')
 def first():
@@ -56,9 +42,7 @@ def first():
 
 @app.route('/register',methods=['GET','POST'])
 def register():
-    print "log check"
     if request.method=='GET':
-        #print request.cookie
         return render_template('register.html')
     else:
         
@@ -66,36 +50,21 @@ def register():
         email=request.form['Email']
         password=request.form['Password']
         confirm=request.form['Confirm_Password']
-        print "log check 2"
         try:
-            print "log check 11"
             if (registration.objects.get(email_db=email) ):
-                #flash( "email already exists ")
-                print "log check 5"
                 return redirect(url_for('register'))
-            print "log check 6"
         except DoesNotExist:
-            print "log check 10"
             if (password==confirm):
                 try:
-                    print "log check 3"
                     reg=registration(name_db=name,email_db=email,create_password=password).save()
-                    print "log check 9"
                     flash('registration complete pls do the login')
                     return redirect(url_for('login'))
                 except Exception,e:
-                    #flash(str(e))
-                    print "log check 8"
-                    print "*****",str(e)
                     return redirect(url_for('register'))
             else:
-                print "log check 4"
                 flash("password mismatch")
                 return redirect(url_for('register'))
         except Exception,e:
-            #flash(str(e))
-            print "*****",str(e)
-            print "log check 7"
             return redirect(url_for('register'))
         
             
@@ -106,11 +75,9 @@ def register():
 def login():
    
     if request.method=='GET':
-        #print request.cookies
         return render_template('login.html')
     else:
         email2=request.form['EMAILID']
-        #print email2
 
         password2=request.form['PASSWORD']
    
@@ -122,25 +89,10 @@ def login():
 
 
                 
-                        #print '3'
                         user = User()
-                        #print dir(user)
                         user.id = email2
                         print '3'
-                        #print dir(flask_login)
-                       # print flask_login.COOKIE_NAME
-                        #print flask_login.login_user
-                        #print flask_login.session
-                       # print flask_login.datetime.now()
-                        #print dir(flask_login.login_user)
-                        #sprint help(flask_login.login_user)
-                        flask_login.login_user(user) #here login_user is one of the attribute 
-                                                        #of flask_login class'''
-                        #print help(flask_login.logout_user)
-                        
-                        print '4'
-                        #flask.flash('Logged in successfully.')
-                                
+                        flask_login.login_user(user)                                 
                         return redirect(url_for('bookmark1'))
                 except DoesNotExist:
 
@@ -190,11 +142,9 @@ def views():
     list1=[]
     for i in Bookmark_db.objects(email=current_email):
         list1.append(i.location)
-        #print"rferf"
         print list1
     
     if not Bookmark_db.objects(email=current_email):
-        #print 'dwed'
         flash('No Bookmark available')
         return render_template('bookmark_view.html',url_list=list1)
     return render_template('bookmark_view.html',url_list=list1)
@@ -223,7 +173,6 @@ def edit(aa):
         current_email= flask.ext.login.current_user.id
         c=Bookmark_db.objects.get(email=current_email,location="http://"+aa)
         d= c.name
-        #e=c.location
         f=c.labels
         g=c.notes
 
@@ -249,11 +198,8 @@ def export():
         list_url=[]
         for i in Bookmark_db.objects(email=current_email):
             list_url.append(i.location)
-            #print"rferf"
-            #print list1
         
         if not Bookmark_db.objects(email=current_email):
-            #print 'dwed'
             flash('No Bookmark available')
             return render_template('bookmark_view.html')
         return render_template('bookmark_view2.html',url_list=list_url)        
@@ -269,22 +215,18 @@ def export():
         current_email=  flask.ext.login.current_user.id
         print "log check 1"
         for j in url_list:
-            #print j
 
             for i in Bookmark_db.objects(email=current_email,location=j):
 
                 li=[]
-            #print i._data.keys()
                 li=i._data.keys()
 
-            #print li
                 break
         if not url_list:
             flash ('please select atleast one option')
             return redirect(url_for('export'))
         for k in range(1,len(li)):
             sheet.cell(row=1,column=k).value=li[k-1]
-            #print sheet
             print "log check 2"
         row_num=2
         for i in url_list:
@@ -298,27 +240,18 @@ def export():
                 for l in range(1,len(li1)):
                     sheet.cell(row=row_num,column=l).value=li1[l-1]
                 row_num+=1
-        print "log check 3"
         try:
 
             wb.save(UPLOAD_FOLDER+'/'+current_email+'.xlsx')
-            print UPLOAD_FOLDER
         except Exception,e:
-            print str(e)
-        print 'd'
-            #for l in range(1,len(li1)):
-
 
         flash('files saved successfully')
         return render_template('download.html',i=current_email+'.xlsx')
-        #return redirect(url_for('bookmark1'))
 
 
 @app.route('/uploaded/<filename>')
 #@flask_login.login_required
 def uploaded_file(filename):
-    print '6'
-    #print 'abc'
     return send_from_directory(app.config['UPLOAD_FOLDER'],filename)
 
 @app.route('/import_file' , methods=['GET','POST'])
@@ -329,11 +262,9 @@ def import_file():
     else:
         current_email=flask.ext.login.current_user.id
         file1=request.files['file_name']
-        print file1.filename    
             
 
         wb = openpyxl.load_workbook('/home/sumit/google_bookmark/'+str(file1.filename))
-        print wb.get_sheet_names()
         sheet=wb.get_active_sheet()
         d=sheet.get_highest_row()
         for i in range(2,d+1):
@@ -350,13 +281,8 @@ def import_file():
 @flask_login.login_required
 def remove(aa):
     
-    #print 'hello'
-    #print aa
     current_email= flask.ext.login.current_user.id
-    
-
     c=Bookmark_db.objects.get(email=current_email,location="http://"+aa)
-
     c.delete()    
     flash("File Delted Successfully")
     return redirect(url_for('views'))
@@ -377,8 +303,5 @@ def unauthorized_handler():
     return redirect (url_for('first'))
 
 
-
-
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
