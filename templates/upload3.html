@@ -1,0 +1,29 @@
+
+<!doctype html>
+<html>
+<head>
+
+    
+</head>
+<body>
+<p>Hello: {{name}} </p>
+</br>
+Files uploaded:
+
+
+
+<div>
+{%for i,k in dict.iteritems()%}
+<a href="/uploaded/{{i}}"> {{i}}</a>    {{k}} </br>
+
+         
+{%endfor%}
+</div>
+
+<form>
+<button type="submit" formaction="/logout">Logout</button>
+</form>
+
+
+</body>
+</html> 

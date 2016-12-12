@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+ {% block form%}
+ <form action='' method='POST'  enctype="multipart/form-data">
+                <h2> Upload your file</h2>
+                <br>
+                <br>
+
+                
+                <br>
+                <input type='file' class="btn btn-info" name= 'file_name' required=True>
+                <br>
+                
+
+                <input type='submit' class="btn btn-lg btn-success" name='submit'></input>
+
+            
+               </form>
+
+
+{%endblock%}

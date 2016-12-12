@@ -1,0 +1,27 @@
+
+ {% extends "layout.html" %}
+ {% block form%}
+ <form >
+               
+                
+                <div class ="container" >
+                    <div class ="jumbotron text-center"> <!-- text-cemtre is used to allign text in jumbotron to center -->
+                                    <h2>Please Choose The Option</h2>
+
+                <p allign="center">
+                <button type='submit' class="btn btn-lg btn-primary"  formaction="/add_bookmark">Add Bookmark</button>
+<!--btn-lg for big size button , and s for small size buttons-->
+            
+
+                <button type='submit' class="btn btn-lg btn-info" formaction="/views">View Previous Bookmark</button>
+                <button type='submit' class="btn btn-lg btn-success" formaction="/delete">Delete All</button>
+                <button type='submit'class="btn btn-lg btn-warning" formaction="/export">Export</button>
+                <button type="submit"class="btn btn-lg btn-danger" formaction="/import_file">Import</button>
+                <button type="submit"class="btn btn-lg btn-info" formaction="/logout">Logout</button>
+                </p>    
+                                        </div>
+                                        </div>    
+
+            
+</form>
+{%endblock%}
